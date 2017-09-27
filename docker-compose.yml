@@ -1,0 +1,44 @@
+version: "3"
+services:
+  # --------------------
+  # Auth service
+  # --------------------
+  auth:
+    image: rgamba/test-auth
+  auth_postman:
+    image: rgamba/postman:latest
+    volumes:
+      - "./auth/postman-auth.toml:/config.toml"
+    depends_on:
+      - rabbitmq
+      - auth
+    ports:
+      - "5000:18130"
+  # --------------------
+  # API service
+  # --------------------
+  api:
+    image: rgamba/test-api
+    ports:
+      - "4000:80"
+  api_postman:
+    image: rgamba/postman:latest
+    volumes:
+      - "./api/postman-api.toml:/config.toml"
+    depends_on:
+      - rabbitmq
+      - api
+    ports:
+      - "5001:18130"
+  # --------------------
+  # RabbitMQ service
+  # --------------------
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15673:15672"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
