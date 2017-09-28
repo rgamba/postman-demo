@@ -1,9 +1,19 @@
 # Steps
 
-First make sure you've installed Docker.
+First make sure you've installed [Docker](https://www.docker.com/).
+
+Then, [create a Docker Hub account](https://hub.docker.com/) if you don't have one already.
+
+Login to Docker Hub:
 
 ```bash
-git clone github.com/rgamba/postman-demo
+docker login
+```
+
+Then
+
+```bash
+git clone https://github.com/rgamba/postman-demo
 cd postman-demo
 docker-compose up 
 ```
