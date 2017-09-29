@@ -15,6 +15,18 @@ services:
     ports:
       - "5000:18130"
   # --------------------
+  # Auth service second instance
+  # --------------------
+  auth_2:
+    image: rgamba/test-auth
+  auth_postman_2:
+    image: rgamba/postman:latest
+    volumes:
+      - "./auth/postman-auth-2.toml:/config.toml"
+    depends_on:
+      - rabbitmq
+      - auth
+  # --------------------
   # API service
   # --------------------
   api:
